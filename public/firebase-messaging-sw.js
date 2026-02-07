@@ -2,17 +2,13 @@
 importScripts("https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.12.5/firebase-messaging-compat.js");
 
-/**
- * IMPORTANT:
- * Replace the values below in Step 3 after you create Firebase project.
- * (These are safe-to-expose web config values.)
- */
+
 firebase.initializeApp({
-  apiKey: "__API_KEY__",
-  authDomain: "__AUTH_DOMAIN__",
-  projectId: "__PROJECT_ID__",
-  messagingSenderId: "__SENDER_ID__",
-  appId: "__APP_ID__",
+  apiKey: "AIzaSyAbaBrCwiKNRgLC1UV3b4142oJim0UpgK8",
+  authDomain: "cooking-partner-42761.firebaseapp.com",
+  projectId: "cooking-partner-42761",
+  messagingSenderId: "1080753701035",
+  appId: "1:1080753701035:web:9fa7e471a35e79ceab37ee",
 });
 
 const messaging = firebase.messaging();
