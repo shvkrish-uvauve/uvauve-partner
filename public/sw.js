@@ -1,10 +1,11 @@
 /* public/sw.js */
+/* eslint-disable no-undef */
 
-/* Firebase (compat) */
+/* Firebase (compat libraries only) */
 importScripts("https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.12.5/firebase-messaging-compat.js");
 
-/* 🔹 Firebase config */
+/* Firebase config */
 firebase.initializeApp({
   apiKey: "AIzaSyAbaBrCwiKNRgLC1UV3b4142oJim0UpgK8",
   authDomain: "cooking-partner-42761.firebaseapp.com",
@@ -15,7 +16,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-/* 🔔 Background push handler */
+/* Background push */
 messaging.onBackgroundMessage((payload) => {
   const data = payload?.data || {};
   const orderId = data.orderId || "";
@@ -35,7 +36,7 @@ messaging.onBackgroundMessage((payload) => {
   );
 });
 
-/* Notification click */
+/* Click handler */
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   const orderId = event.notification?.data?.orderId;
@@ -44,11 +45,11 @@ self.addEventListener("notificationclick", (event) => {
     : `/partner/orders`;
 
   event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientsArr) => {
-      for (const c of clientsArr) {
-        if (c.url.includes("/partner/orders") && "focus" in c) return c.focus();
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      for (const c of list) {
+        if ("focus" in c) return c.focus();
       }
-      if (clients.openWindow) return clients.openWindow(url);
+      return clients.openWindow(url);
     })
   );
 });
