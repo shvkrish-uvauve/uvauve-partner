@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }) {
     if (!("serviceWorker" in navigator)) return;
 
     window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/firebase-messaging-sw.js").catch(() => {});
+    navigator.serviceWorker.register("/sw.js").catch(console.error);
     });
   }, []);
 
