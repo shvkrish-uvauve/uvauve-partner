@@ -1,5 +1,16 @@
 import "../styles/globals.css";
 import { useEffect } from "react";
+function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/firebase-messaging-sw.js").catch(console.error);
+    }
+  }, []);
+
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
 import { Toaster } from "react-hot-toast";
 
 export default function App({ Component, pageProps }) {
