@@ -1,7 +1,23 @@
+import { enablePartnerPush } from "../../lib/push";
 import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { api, clearAuthToken } from "../../lib/api";
 import { useRinger } from "../../lib/ringer";
+
+<button
+  onClick={async () => {
+    try {
+      const t = await enablePartnerPush();
+      console.log("FCM_TOKEN:", t);
+      alert("✅ Alerts enabled. Token logged in console.");
+    } catch (e) {
+      alert(`❌ ${e.message}`);
+    }
+  }}
+  style={{ padding: 10, borderRadius: 10, marginBottom: 12 }}
+>
+  Enable Alerts
+</button>
 
 const INR = (n) => (isFinite(n) ? `₹${Number(n).toLocaleString("en-IN")}` : "—");
 
