@@ -4,21 +4,6 @@ import toast from "react-hot-toast";
 import { api, clearAuthToken } from "../../lib/api";
 import { useRinger } from "../../lib/ringer";
 
-<button
-  onClick={async () => {
-    try {
-      const t = await enablePartnerPush();
-      console.log("FCM_TOKEN:", t);
-      alert("✅ Alerts enabled. Token logged in console.");
-    } catch (e) {
-      alert(`❌ ${e.message}`);
-    }
-  }}
-  style={{ padding: 10, borderRadius: 10, marginBottom: 12 }}
->
-  Enable Alerts
-</button>
-
 const INR = (n) => (isFinite(n) ? `₹${Number(n).toLocaleString("en-IN")}` : "—");
 
 function norm(o) {
@@ -178,6 +163,21 @@ export default function PartnerOrders() {
           <h1 style={{ margin: 0 }}>Partner Orders</h1>
 
           <button onClick={() => fetchOrders().catch(() => {})} style={btn("secondary")}>Refresh</button>
+<button
+  onClick={async () => {
+    try {
+      const t = await enablePartnerPush();
+      console.log("FCM_TOKEN:", t);
+      toast.success("✅ Alerts enabled (token in console)");
+    } catch (e) {
+      toast.error(e.message || "Push enable failed");
+    }
+  }}
+  style={btn("secondary")}
+  title="Enable push notifications"
+>
+  Enable Alerts 🔔
+</button>
 
           <label style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 13 }}>
             <input type="checkbox" checked={onlyActive} onChange={(e) => setOnlyActive(e.target.checked)} />
