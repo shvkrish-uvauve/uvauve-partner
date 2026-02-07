@@ -166,15 +166,24 @@ export default function PartnerOrders() {
 <button
   onClick={async () => {
     try {
+      toast.loading("Requesting notification permission…");
+
       const t = await enablePartnerPush();
+
+      toast.dismiss();
+      toast.success("Push enabled ✅");
+
+      // 🔍 VERY IMPORTANT: show token visibly
+      alert("FCM TOKEN:\n\n" + t);
       console.log("FCM_TOKEN:", t);
-      toast.success("✅ Alerts enabled (token in console)");
     } catch (e) {
-      toast.error(e.message || "Push enable failed");
+      toast.dismiss();
+      toast.error("Push failed");
+      alert("ERROR:\n" + (e?.message || e));
+      console.error(e);
     }
   }}
   style={btn("secondary")}
-  title="Enable push notifications"
 >
   Enable Alerts 🔔
 </button>
